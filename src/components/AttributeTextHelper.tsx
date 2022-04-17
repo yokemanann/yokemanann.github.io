@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import {
   EuiPage,
   EuiPageHeader,
@@ -12,6 +12,7 @@ import {
   EuiFormRow,
   EuiText,
   EuiFlexGroup,
+  EuiSpacer,
 } from "@elastic/eui";
 
 class Inp {
@@ -21,8 +22,6 @@ class Inp {
 }
 
 export const CustomForm = ({ button = <></> }) => {
-  const [value, setValue] = useState("");
-
   const [arr, setArr] = useState([new Inp()]);
 
   const addInput = () => {
@@ -60,14 +59,14 @@ export const CustomForm = ({ button = <></> }) => {
       <EuiPageBody>
         <EuiPageHeader
           iconType="logoElastic"
-          pageTitle="Page title"
+          pageTitle="PHP data attributes helper"
           rightSideItems={[button, <EuiButton>Do something</EuiButton>]}
           bottomBorder
         />
         <EuiPageContentBody>
           <EuiFlexGrid columns={1}>
             <EuiFlexItem>
-              <EuiPanel >
+              <EuiPanel>
                 <EuiFlexItem>
                   {arr.map((item, i) => {
                     item.id = i;
@@ -84,6 +83,7 @@ export const CustomForm = ({ button = <></> }) => {
                     );
                   })}
                 </EuiFlexItem>
+                <EuiSpacer />
                 <EuiFlexGroup
                   responsive={false}
                   wrap
@@ -91,8 +91,8 @@ export const CustomForm = ({ button = <></> }) => {
                   alignItems="center"
                 >
                   <EuiFlexItem grow={false}>
-                    <EuiButton onClick={addInput} iconType="heart">
-                      Primary
+                    <EuiButton onClick={addInput} iconType="plus">
+                      Add
                     </EuiButton>
                   </EuiFlexItem>
                 </EuiFlexGroup>
@@ -101,14 +101,14 @@ export const CustomForm = ({ button = <></> }) => {
           </EuiFlexGrid>
           <EuiFlexGrid columns={3}>
             <EuiFlexItem>
-              <EuiPanel >
+              <EuiPanel>
                 {arr.map((item, i) => {
                   if (item.value) return <EuiText>{forJS(item.value)}</EuiText>;
                 })}
               </EuiPanel>
             </EuiFlexItem>
             <EuiFlexItem>
-              <EuiPanel >
+              <EuiPanel>
                 <EuiText>
                   {arr.map((item, i) => {
                     if (item.value)
@@ -118,7 +118,7 @@ export const CustomForm = ({ button = <></> }) => {
               </EuiPanel>
             </EuiFlexItem>
             <EuiFlexItem>
-              <EuiPanel >
+              <EuiPanel>
                 <EuiText>
                   {arr.map((item, i) => {
                     if (item.value)

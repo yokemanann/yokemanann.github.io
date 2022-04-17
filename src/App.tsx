@@ -1,9 +1,7 @@
 import '@elastic/eui/dist/eui_theme_light.css';
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { EuiProvider } from "@elastic/eui";
-import { CustomForm } from "./components/customForm";
+import { CustomForm } from "./components/AttributeTextHelper";
 
 function App() {
   return (
