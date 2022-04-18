@@ -1,13 +1,13 @@
-import '@elastic/eui/dist/eui_theme_light.css';
+import "@elastic/eui/dist/eui_theme_light.css";
 import "./App.css";
 import { EuiProvider } from "@elastic/eui";
-import { CustomForm } from "./components/AttributeTextHelper";
+import { AttributeTextHelper } from "./components/AttributeTextHelper";
 
 function App() {
   return (
     <div className="App">
       <EuiProvider>
-        <CustomForm />
+        <AttributeTextHelper />
       </EuiProvider>
     </div>
   );

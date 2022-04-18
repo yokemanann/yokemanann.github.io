@@ -17,7 +17,7 @@ import { Inp } from "./Inp";
 import { TextList } from "./TextList";
 
 
-export const CustomForm = ({ button = <></> }) => {
+export const AttributeTextHelper = ({ button = <></> }) => {
   const [arr, setArr] = useState([new Inp()]);
   var funcs : { (s: string): string; }[]
   funcs = [];
@@ -103,8 +103,8 @@ export const CustomForm = ({ button = <></> }) => {
           </EuiFlexGrid>
           <EuiFlexGrid columns={3}>
             {
-              funcs.map((item) => {
-                return <TextList arr={arr} handleChange={item}></TextList>
+              funcs.map((item, i) => {
+                return <TextList arr={arr} handleChange={item} key={i}></TextList>
               })
             }
           </EuiFlexGrid>

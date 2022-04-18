@@ -14,25 +14,36 @@ interface Props {
 }
 
 export const TextList: React.FC<Props> = ({ arr, handleChange }) => {
-  const consolidatedText = arr
+  let consolidatedText = arr
     .map((item) => {
-      return handleChange(item.value);
+      if (item.value && item.value !== "" && item.value !== undefined)
+        return handleChange(item.value);
+      else return "";
     })
+    .filter((item) => item !== "")
     .join("\r\n");
+
+  if (consolidatedText !== "") console.log("a" + consolidatedText + "b");
 
   return (
     <EuiFlexItem>
       <EuiPanel>
-        {arr.map((item) => {
-          if (item.value) return <EuiText>{handleChange(item.value)}</EuiText>;
+        {arr.map((item, i) => {
+          if (item.value)
+            return <EuiText key={i}>{handleChange(item.value)}</EuiText>;
+          else return "";
         })}
         <EuiSpacer size="m" />
-
-        <EuiCopy textToCopy={consolidatedText}>
-          {(copy) => (
-            <EuiButton onClick={copy}>Click to copy input text</EuiButton>
-          )}
-        </EuiCopy>
+        
+        {consolidatedText !== "" ? (
+          <EuiCopy textToCopy={consolidatedText}>
+            {(copy) => (
+              <EuiButton onClick={copy}>Click to copy input text</EuiButton>
+            )}
+          </EuiCopy>
+        ) : (
+          ""
+        )}
       </EuiPanel>
     </EuiFlexItem>
   );
