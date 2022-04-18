@@ -10,19 +10,17 @@ import {
   EuiPanel,
   EuiFieldText,
   EuiFormRow,
-  EuiText,
   EuiFlexGroup,
   EuiSpacer,
 } from "@elastic/eui";
+import { Inp } from "./Inp";
+import { TextList } from "./TextList";
 
-class Inp {
-  type: string = "text";
-  id: number = 1;
-  value: string = "";
-}
 
 export const CustomForm = ({ button = <></> }) => {
   const [arr, setArr] = useState([new Inp()]);
+  var funcs : { (s: string): string; }[]
+  funcs = [];
 
   const addInput = () => {
     setArr((s) => {
@@ -42,17 +40,21 @@ export const CustomForm = ({ button = <></> }) => {
     });
   };
 
-  const forJS = (e: String) => {
-    return e;
+  const forJS = (e: string): string => {
+    return `${e}: $("#${e}").val(),`;
   };
 
-  const forAjax = (e: String) => {
+  const forAjax = (e: string): string => {
     return `$data['${e}'] = $param['${e}'];`;
   };
 
-  const forAPI = (e: String) => {
+  const forAPI = (e: string): string=> {
     return `$${e} = !empty($param['data']['${e}'])?trim($param['data']['${e}']): '';`;
   };
+
+  funcs.push(forJS);
+  funcs.push(forAjax);
+  funcs.push(forAPI);
 
   return (
     <EuiPage paddingSize="l">
@@ -100,33 +102,11 @@ export const CustomForm = ({ button = <></> }) => {
             </EuiFlexItem>
           </EuiFlexGrid>
           <EuiFlexGrid columns={3}>
-            <EuiFlexItem>
-              <EuiPanel>
-                {arr.map((item, i) => {
-                  if (item.value) return <EuiText>{forJS(item.value)}</EuiText>;
-                })}
-              </EuiPanel>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <EuiPanel>
-                <EuiText>
-                  {arr.map((item, i) => {
-                    if (item.value)
-                      return <EuiText>{forAjax(item.value)}</EuiText>;
-                  })}
-                </EuiText>
-              </EuiPanel>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <EuiPanel>
-                <EuiText>
-                  {arr.map((item, i) => {
-                    if (item.value)
-                      return <EuiText>{forAPI(item.value)}</EuiText>;
-                  })}
-                </EuiText>
-              </EuiPanel>
-            </EuiFlexItem>
+            {
+              funcs.map((item) => {
+                return <TextList arr={arr} handleChange={item}></TextList>
+              })
+            }
           </EuiFlexGrid>
         </EuiPageContentBody>
       </EuiPageBody>
