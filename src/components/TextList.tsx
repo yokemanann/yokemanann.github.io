@@ -21,9 +21,7 @@ export const TextList: React.FC<Props> = ({ arr, handleChange }) => {
       else return "";
     })
     .filter((item) => item !== "")
-    .join("\r\n");
-
-  if (consolidatedText !== "") console.log("a" + consolidatedText + "b");
+    .join("\n");
 
   return (
     <EuiFlexItem>
@@ -34,7 +32,7 @@ export const TextList: React.FC<Props> = ({ arr, handleChange }) => {
           else return "";
         })}
         <EuiSpacer size="m" />
-        
+
         {consolidatedText !== "" ? (
           <EuiCopy textToCopy={consolidatedText}>
             {(copy) => (
